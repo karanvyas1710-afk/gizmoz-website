@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: gizmoz
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "22"
+      # --- Email delivery (optional) ----------------------------------------
+      # Until these are set, form submissions are logged and written to disk
+      # instead of emailed. Set them in the Render dashboard, not in this file.
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_TO
+        sync: false

@@ -1,0 +1,485 @@
+[
+  {
+    "slug": "thinkpad-l13-gen-2",
+    "name": "Lenovo ThinkPad L13 Generation 2",
+    "shortName": "ThinkPad L13 Gen 2",
+    "brand": "lenovo",
+    "category": "laptops",
+    "price": 999,
+    "wasPrice": 1299,
+    "stock": 4,
+    "featured": true,
+    "tagline": "The school-season favourite — 1.39 kg, three-year warranty.",
+    "description": "This machine is very popular for primary and secondary school kids and home use. With a weight of 1.39KG, it makes it easy to carry around.\n\nThinkPads are traditionally known for their build, quality and performance. If you need a budget-friendly and reliable machine that your child can work on at school and at home and that lasts, look no further than the Lenovo ThinkPad L13. Here are the detailed specifications of the machine.",
+    "images": [
+      "products/l13-gen2-1.png",
+      "products/l13-gen2-2.png",
+      "products/l13-gen2-3.png",
+      "products/l13-gen2-4.png",
+      "products/l13-gen2-5.png",
+      "products/l13-gen2-6.png"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Screen",
+        "13.3″ HD (1366 x 768) IPS Anti-Glare Non Touch"
+      ],
+      [
+        "Graphics",
+        "Intel® Iris Xe Graphics"
+      ],
+      [
+        "Processor",
+        "Intel® Core™ i5-1135G7 Processor (2.40GHz/4C)"
+      ],
+      [
+        "RAM",
+        "8GB DDR4 3200MHz SODIMM (onboard, non-upgradable)"
+      ],
+      [
+        "Camera",
+        "Integrated 720p HD Camera"
+      ],
+      [
+        "SSD",
+        "256GB SSD m.2 2280 NVMe"
+      ],
+      [
+        "Wi-Fi",
+        "Intel® Wi-Fi 6 AX201 (2×2, 802.11ax) + Bluetooth / no NFC / fingerprint reader"
+      ],
+      [
+        "Ports",
+        "USB-C to RJ45 Ethernet adapter"
+      ],
+      [
+        "Battery",
+        "Integrated Li-Polymer 46Wh battery, supports Rapid Charge (up to 80% in 1hr) with 65W AC adapter 3-pin USB-C"
+      ],
+      [
+        "OS",
+        "Windows® 10 Home"
+      ],
+      [
+        "Warranty",
+        "3 Year Depot Warranty"
+      ]
+    ]
+  },
+  {
+    "slug": "thinkpad-l15-amd-gen-2",
+    "name": "Lenovo ThinkPad L15 AMD Gen 2",
+    "shortName": "ThinkPad L15 AMD Gen2",
+    "brand": "lenovo",
+    "category": "laptops",
+    "price": 1499,
+    "wasPrice": null,
+    "stock": 1,
+    "featured": true,
+    "tagline": "A 15.6″ workhorse for data entry, finance and accounting.",
+    "description": "The productive Lenovo ThinkPad L15 Gen 2 (15.6″ AMD) laptop is an affordable, powerful PC that handles data entry, finance, accounting and other workloads with ease.\n\nStream videos and make presentations seamlessly, thanks to its AMD Ryzen™ 5 PRO Processors with Radeon™ Graphics. Its integrated AMD security platform and Lenovo ThinkShield security features protect the device and your data, while all-day battery lets you work anywhere.",
+    "images": [
+      "products/l15-amd-1.png",
+      "products/l15-amd-2.png",
+      "products/l15-amd-3.png",
+      "products/l15-amd-4.png",
+      "products/l15-amd-5.png"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Screen",
+        "15.6″ FHD (1920 x 1080) IPS Anti-Glare"
+      ],
+      [
+        "Graphics",
+        "AMD Radeon™ Graphics"
+      ],
+      [
+        "Processor",
+        "AMD Ryzen™ 5 PRO 5650U Processor (16M Cache, up to 4.2GHz)"
+      ],
+      [
+        "RAM",
+        "16GB DDR4 3200MHz SODIMM"
+      ],
+      [
+        "Camera",
+        "Integrated 720p HD Camera w/ privacy shutter"
+      ],
+      [
+        "SSD",
+        "512GB SSD PCIe-NVMe OPAL"
+      ],
+      [
+        "Wi-Fi",
+        "Wi-Fi (2×2 802.11ax)"
+      ],
+      [
+        "Accessories",
+        "Bluetooth, fingerprint reader"
+      ],
+      [
+        "Battery",
+        "Integrated 45Wh battery"
+      ],
+      [
+        "OS",
+        "Windows® 10 Professional"
+      ],
+      [
+        "Warranty",
+        "1 Year Onsite"
+      ]
+    ]
+  },
+  {
+    "slug": "thinkpad-x1-carbon-gen-9",
+    "name": "Lenovo ThinkPad X1 Carbon Generation 9",
+    "shortName": "ThinkPad X1 Carbon Gen 9",
+    "brand": "lenovo",
+    "category": "laptops",
+    "price": 2499,
+    "wasPrice": null,
+    "stock": 0,
+    "featured": true,
+    "tagline": "Ultrathin, ultralight, 16:10 — the flagship business ultrabook.",
+    "description": "The 14″ ThinkPad X1 Carbon Gen 9 laptop rolls out a host of new features that add convenience, improve technology, and enrich your experience — all while retaining an ultrathin and ultralight chassis. You'll discover an impressive 16:10 display, a wider TouchPad, a larger battery for more time unplugged, and rear ventilation to improve efficiency. Plus, with the Intel® Iris™ platform, you get a super-responsive device that's ready whenever you need it.",
+    "images": [
+      "products/x1-carbon-1.png",
+      "products/x1-carbon-alt.png",
+      "products/x1-carbon-2.png",
+      "products/x1-carbon-3.png",
+      "products/x1-carbon-4.png",
+      "products/x1-carbon-5.png",
+      "products/x1-carbon-6.png"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Screen",
+        "14.0″ WUXGA (1920 x 1200) IPS Anti-Glare 400N Touch, Low Power, Low Blue Light, HPD"
+      ],
+      [
+        "Graphics",
+        "Intel® Iris Xe Graphics"
+      ],
+      [
+        "Processor",
+        "Intel® Core™ i7-1165G7 Processor (12M Cache, up to 4.70GHz)"
+      ],
+      [
+        "RAM",
+        "16GB LPDDR4x 4266MHz soldered (not upgradable)"
+      ],
+      [
+        "Camera",
+        "Integrated IR & 720p HD Camera w/ privacy shutter"
+      ],
+      [
+        "SSD",
+        "256GB or 512GB SSD PCIe-NVMe OPAL"
+      ],
+      [
+        "Wi-Fi",
+        "Intel® Wi-Fi 6 AX201 (2×2, 802.11ax)"
+      ],
+      [
+        "WWAN",
+        "No WWAN"
+      ],
+      [
+        "Accessories",
+        "Bluetooth, fingerprint reader"
+      ],
+      [
+        "OS",
+        "Windows® 10 Professional"
+      ],
+      [
+        "Warranty",
+        "3 Year Onsite incl. 1 Year Premier Support"
+      ]
+    ]
+  },
+  {
+    "slug": "thinkpad-x1-fold",
+    "name": "Lenovo ThinkPad X1 Fold",
+    "shortName": "ThinkPad X1 Fold",
+    "brand": "lenovo",
+    "category": "laptops",
+    "price": 2599,
+    "wasPrice": null,
+    "stock": 2,
+    "featured": false,
+    "tagline": "Winner of 43 CES awards — the world's first foldable PC.",
+    "description": "Winner of 43 CES awards, the ThinkPad X1 Fold is the world's 1st foldable PC.\n\nUse it and carry it in ways never before possible — enjoy a split-screen experience or one huge display, enhanced with pen, keyboard, or fingers. Powered by Windows 11 and Intel® Core™ processors with Intel Hybrid Technology, the ThinkPad X1 Fold delivers whatever your busy day demands.",
+    "images": [
+      "products/x1-fold-1.png"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Screen",
+        "13.3″ QXGA (2048 x 1536) Folding OLED 300N Touch"
+      ],
+      [
+        "Graphics",
+        "Intel® UHD Graphics"
+      ],
+      [
+        "Processor",
+        "Intel® Core™ i5-L16G7 Processor (4M Cache, up to 3.0GHz)"
+      ],
+      [
+        "RAM",
+        "8GB LPDDR4X 4266MHz soldered (not upgradable)"
+      ],
+      [
+        "WLAN",
+        "Integrated Mobile Broadband 5G (CAT20)"
+      ],
+      [
+        "SSD",
+        "512GB SSD PCIe-NVMe"
+      ],
+      [
+        "Wi-Fi",
+        "Intel® Wi-Fi 6 AX200 (2×2, 802.11ax)"
+      ],
+      [
+        "Accessories",
+        "Lenovo Fold Mini Keyboard, Lenovo Mod Pen"
+      ],
+      [
+        "Battery",
+        "Integrated 50Wh battery"
+      ],
+      [
+        "OS",
+        "Windows® 11 Professional"
+      ],
+      [
+        "Warranty",
+        "3Y Premier Support with Depot upgrade from 3Y Depot"
+      ]
+    ]
+  },
+  {
+    "slug": "thinkpad-usb-c-dock-gen-2",
+    "name": "Lenovo ThinkPad USB-C Dock Gen 2",
+    "shortName": "ThinkPad USB-C Dock Gen 2",
+    "brand": "lenovo",
+    "category": "accessories",
+    "price": 300,
+    "wasPrice": null,
+    "stock": 3,
+    "featured": true,
+    "tagline": "One cable. Three monitors. Every peripheral you own.",
+    "description": "One connection, no limitations — think of all the time you'd save if you could connect all your peripherals at once, transfer USB data at lightning-fast 10 Gbps speeds, and have access to a stable, stress-free wired network connection. Jaw-dropping 4K or multiple displays — the days of being limited by your notebook's capabilities are over.",
+    "images": [
+      "products/dock-1.png",
+      "products/dock-2.png",
+      "products/dock-6.png",
+      "products/dock-3.jpg",
+      "products/dock-4.jpg",
+      "products/dock-5.jpg"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Video Ports",
+        "2x DisplayPort, 1x HDMI Port"
+      ],
+      [
+        "USB Ports",
+        "3x USB 3.1, 2x USB 2.0, 1x USB-C"
+      ],
+      [
+        "Ethernet",
+        "1x Gigabit Ethernet"
+      ],
+      [
+        "Audio Ports",
+        "1x combo audio jack"
+      ],
+      [
+        "Monitors",
+        "Supports up to 3"
+      ],
+      [
+        "Power",
+        "65W with 90W power adapter connected"
+      ],
+      [
+        "Power Plug",
+        "Slim-tip"
+      ],
+      [
+        "Security",
+        "2x security lock slot"
+      ],
+      [
+        "OS",
+        "Windows 10, Windows 7"
+      ],
+      [
+        "Warranty",
+        "3 years"
+      ]
+    ]
+  },
+  {
+    "slug": "thinkpad-bluetooth-silent-mouse",
+    "name": "ThinkPad Bluetooth 5.0 Silent Mouse",
+    "shortName": "ThinkPad Bluetooth Silent Mouse",
+    "brand": "lenovo",
+    "category": "accessories",
+    "price": 45,
+    "wasPrice": null,
+    "stock": 2,
+    "featured": false,
+    "tagline": "Silent buttons, three-million-click life, pairs with two devices.",
+    "description": "The ThinkPad Bluetooth Silent Mouse takes a well-worn concept and turns it on its head, delivering a productivity device that doesn't get in the way of the busy professionals who use it. It is sculpted to be comfortable to rest your palm on, with a low-profile, minimalist design that makes the mouse easy to carry and fit into pockets without bulging.\n\nGet more done with the blue optical sensor that allows you to work on most surfaces, revolutionary distraction-free silent buttons, and on-the-fly adjustable DPI controls. Effortlessly pair with up to two devices at once and quickly switch between them with the push of a button, thanks to Bluetooth 5.0 and Microsoft Swift Pair technology.",
+    "images": [
+      "products/silent-mouse-1.png",
+      "products/silent-mouse-7.jpg",
+      "products/silent-mouse-5.jpg",
+      "products/silent-mouse-3.jpg",
+      "products/silent-mouse-4.jpg",
+      "products/silent-mouse-6.jpg"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Number of Buttons",
+        "3 (left click, right click, scroll click)"
+      ],
+      [
+        "Button Life",
+        "Right/left buttons — up to 3 million clicks"
+      ],
+      [
+        "Scroll Button",
+        "Up to 100,000 clicks"
+      ],
+      [
+        "Mouse Resolution",
+        "3-level adjustable DPI (2400, 1600, 800)"
+      ],
+      [
+        "Sensor",
+        "Blue optical sensor"
+      ],
+      [
+        "Connectivity",
+        "Bluetooth 5.0"
+      ],
+      [
+        "Battery",
+        "Up to 12 months (may vary based on usage)"
+      ],
+      [
+        "Power",
+        "1 AA battery"
+      ],
+      [
+        "Weight",
+        "61 g"
+      ],
+      [
+        "OS",
+        "Windows 10, Windows 11"
+      ],
+      [
+        "Warranty",
+        "1 Year Warranty"
+      ]
+    ]
+  },
+  {
+    "slug": "lenovo-essential-compact-wireless-mouse",
+    "name": "Lenovo Essential Compact Wireless Mouse",
+    "shortName": "Lenovo Essential Wireless Mouse",
+    "brand": "lenovo",
+    "category": "accessories",
+    "price": 19,
+    "wasPrice": null,
+    "stock": 2,
+    "featured": false,
+    "tagline": "Pocket-sized, nano receiver, twelve months on one AA.",
+    "description": "The Lenovo Essential Compact Wireless Mouse is designed with your convenience in mind. It's easy to get more done when you don't have to waste time untangling messy cables or searching the office for new batteries. Its compact size makes it the perfect companion no matter what the occasion. Slide it into your pocket, backpack or laptop bag, and you're ready to go.",
+    "images": [
+      "products/essential-mouse-1.png"
+    ],
+    "specs": [
+      [
+        "Colour",
+        "Black"
+      ],
+      [
+        "Requirements",
+        "Supported PC with USB port"
+      ],
+      [
+        "Buttons",
+        "3 (left click, right click, scroll click)"
+      ],
+      [
+        "Resolution",
+        "1000 DPI"
+      ],
+      [
+        "Sensor",
+        "Optical sensor"
+      ],
+      [
+        "Connectivity",
+        "2.4 GHz wireless via nano USB"
+      ],
+      [
+        "Battery",
+        "Up to 12 months"
+      ],
+      [
+        "Power",
+        "1 AA battery"
+      ],
+      [
+        "Length",
+        "56 mm (2.20 in)"
+      ],
+      [
+        "Weight",
+        "50 g"
+      ],
+      [
+        "OS",
+        "Windows 7, 8, 8.1, 10, 11"
+      ],
+      [
+        "Warranty",
+        "1 Year"
+      ]
+    ]
+  }
+]
