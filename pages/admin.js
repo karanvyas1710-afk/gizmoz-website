@@ -28,7 +28,7 @@ function shell({ title, body, base, showNav = true, notice }) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>${esc(title)} — Gizmoz admin</title>
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="512x512">
 <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>

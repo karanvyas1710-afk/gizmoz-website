@@ -218,6 +218,8 @@ a:hover { color: var(--blue-dark); }
 }
 
 .brand { display: flex; align-items: center; flex: none; }
+/* The width/height attributes size the mark; the global img rule keeps the
+   aspect. Do not set width here or the attributes are overridden. */
 .brand .mark { display: block; }
 
 .primary-nav { margin-inline: auto; }
@@ -372,10 +374,10 @@ a:hover { color: var(--blue-dark); }
   gap: clamp(28px, 4vw, 70px);
   padding-block: clamp(40px, 5vw, 76px);
 }
-/* The tagline is part of the logo artwork now, so the hero has no separate
+/* The tagline is part of the logo artwork, so the hero has no separate
    tagline line to align. */
 .hero-title { margin: 0 0 26px; }
-.hero-text .wordmark { height: auto; width: min(470px, 100%); }
+.hero-text .wordmark { width: min(470px, 100%); height: auto; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
 .promo {

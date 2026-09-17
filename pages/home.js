@@ -20,10 +20,7 @@ module.exports = function home(products) {
 <section class="hero">
   <div class="wrap hero-inner">
     <div class="hero-text">
-      <h1 class="hero-title">
-        <span class="sr-only">Gizmoz — ${esc(site.tagline)}</span>
-        <span aria-hidden="true">${wordmark({ height: 132, tagline: site.tagline })}</span>
-      </h1>
+      <h1 class="hero-title">${wordmark({ alt: `Gizmoz — ${site.tagline}`, eager: true })}</h1>
       <div class="hero-actions">
         <a class="btn" href="/shop">Shop now</a>
         <a class="btn btn-ebay" href="${site.social.ebay}" target="_blank" rel="noopener">
