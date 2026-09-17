@@ -6,6 +6,8 @@ const express = require('express');
 
 const site = require('./lib/site');
 const mailer = require('./lib/mailer');
+const store = require('./lib/store');
+const adminRoutes = require('./lib/admin-routes');
 const { money } = require('./lib/layout');
 
 const home = require('./pages/home');
@@ -14,8 +16,11 @@ const productPage = require('./pages/product');
 const { ourStory, personalSolutions, byod, wifiSolutions } = require('./pages/content');
 const { contact, findYourIdealDevice, questionnaire, cart, thanks, notFound } = require('./pages/forms');
 
-const products = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'products.json'), 'utf8'));
-const bySlug = new Map(products.map((p) => [p.slug, p]));
+// The catalogue is mutable at runtime — the admin area edits it — so every
+// route reads it through the store rather than closing over a snapshot.
+store.load();
+const products = () => store.all();
+const bySlug = (slug) => store.bySlug(slug);
 
 const app = express();
 app.disable('x-powered-by');
@@ -31,6 +36,19 @@ app.use(
   })
 );
 
+// Photos uploaded through the admin area live outside the code directory.
+app.use(
+  '/uploads',
+  express.static(store.UPLOADS_DIR, {
+    maxAge: process.env.NODE_ENV === 'production' ? '7d' : 0,
+    index: false,
+    dotfiles: 'deny',
+  })
+);
+
+// The admin area mounts itself, and is absent entirely when no password is set.
+adminRoutes(app);
+
 const html = (res, markup) => res.type('html').send(markup);
 
 /* ------------------------------------------------------------------ */
@@ -39,7 +57,7 @@ const html = (res, markup) => res.type('html').send(markup);
 
 app.get('/healthz', (_req, res) => res.json({ ok: true, mail: mailer.isMailConfigured() }));
 
-app.get('/', (_req, res) => html(res, home(products)));
+app.get('/', (_req, res) => html(res, home(products())));
 app.get('/our-story', (_req, res) => html(res, ourStory()));
 app.get('/personal-solutions', (_req, res) => html(res, personalSolutions()));
 app.get('/byod', (_req, res) => html(res, byod()));
@@ -49,22 +67,22 @@ app.get('/questionnaire', (_req, res) => html(res, questionnaire()));
 app.get('/contact', (req, res) => html(res, contact(req.query)));
 app.get('/cart', (_req, res) => html(res, cart()));
 
-app.get('/shop', (_req, res) => html(res, shop(products)));
+app.get('/shop', (_req, res) => html(res, shop(products())));
 
 const BRANDS = new Set(['lenovo', 'hp', 'dell']);
 const CATEGORIES = new Set(['laptops', 'accessories']);
 
 app.get('/shop/:segment', (req, res, next) => {
   const seg = String(req.params.segment).toLowerCase();
-  if (BRANDS.has(seg)) return html(res, shop(products, { brand: seg }));
-  if (CATEGORIES.has(seg)) return html(res, shop(products, { category: seg }));
+  if (BRANDS.has(seg)) return html(res, shop(products(), { brand: seg }));
+  if (CATEGORIES.has(seg)) return html(res, shop(products(), { category: seg }));
   return next();
 });
 
 app.get('/product/:slug', (req, res, next) => {
-  const p = bySlug.get(req.params.slug);
+  const p = bySlug(req.params.slug);
   if (!p) return next();
-  return html(res, productPage(p, products));
+  return html(res, productPage(p, products()));
 });
 
 app.get('/thanks/:kind', (req, res) => html(res, thanks(req.params.kind)));
@@ -217,7 +235,7 @@ app.post(
       let total = 0;
       const lines = raw
         .map((item) => {
-          const p = bySlug.get(String(item.slug));
+          const p = bySlug(String(item.slug));
           if (!p) return null;
           const qty = Math.max(1, Math.min(20, parseInt(item.qty, 10) || 1));
           total += p.price * qty;

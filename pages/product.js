@@ -4,6 +4,7 @@ const site = require('../lib/site');
 const { page, esc, paragraphs, money, icons } = require('../lib/layout');
 const { productGrid, stockLabel } = require('../lib/components');
 const { sizeAttrs } = require('../lib/imagesize');
+const { imageUrl } = require('../lib/store');
 
 const SHIPPING = 'Shipping only to Australia and New Zealand.';
 
@@ -21,14 +22,14 @@ function gallery(p) {
   const thumbs = p.images
     .map(
       (img, i) =>
-        `<button class="thumb${i === 0 ? ' is-active' : ''}" type="button" data-full="/images/${img}" aria-label="View image ${i + 1}">
-          <img src="/images/${img}" alt=""${sizeAttrs(img)} loading="lazy">
+        `<button class="thumb${i === 0 ? ' is-active' : ''}" type="button" data-full="${esc(imageUrl(img))}" aria-label="View image ${i + 1}">
+          <img src="${esc(imageUrl(img))}" alt=""${sizeAttrs(img)} loading="lazy">
         </button>`
     )
     .join('');
   return `<div class="gallery">
   <div class="gallery-main">
-    <img id="gallery-main-img" src="/images/${p.images[0]}" alt="${esc(p.name)}"${sizeAttrs(p.images[0])}>
+    <img id="gallery-main-img" src="${esc(imageUrl(p.images[0]))}" alt="${esc(p.name)}"${sizeAttrs(p.images[0])}>
   </div>
   ${p.images.length > 1 ? `<div class="gallery-thumbs">${thumbs}</div>` : ''}
 </div>`;
@@ -53,7 +54,7 @@ module.exports = function product(p, allProducts) {
        <a class="btn btn-ghost btn-lg" href="/contact?subject=${encodeURIComponent('Order status')}&amp;about=${encodeURIComponent(p.name)}">Ask when it's back</a>`
     : `<button class="btn btn-lg" type="button" data-add-to-cart
          data-slug="${esc(p.slug)}" data-name="${esc(p.shortName)}" data-price="${p.price}"
-         data-image="/images/${esc(p.images[0])}">Buy now</button>
+         data-image="${esc(imageUrl(p.images[0]))}">Buy now</button>
        <a class="btn btn-ghost btn-lg" href="${site.social.ebay}" target="_blank" rel="noopener">Buy on eBay</a>`;
 
   const body = `

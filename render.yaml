@@ -2,14 +2,44 @@ services:
   - type: web
     name: gizmoz
     runtime: node
-    plan: free
+    plan: starter          # the stock manager needs a disk; free plans have none
     buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /healthz
+
+    # Stock edits and uploaded photos live here. Without this disk the
+    # container's filesystem is wiped on every restart and deploy, and
+    # everything the owner saves is lost.
+    disk:
+      name: gizmoz-data
+      mountPath: /var/data
+      sizeGB: 1
+
     envVars:
       - key: NODE_VERSION
         value: "22"
-      # --- Email delivery (optional) ----------------------------------------
+      - key: NODE_ENV
+        value: production
+
+      # Where the catalogue and uploaded photos are written. Must match the
+      # disk mountPath above.
+      - key: DATA_DIR
+        value: /var/data
+
+      # --- Stock manager ----------------------------------------------------
+      # ADMIN_PASSWORD is what the owner types to sign in. Until it is set the
+      # manager does not exist at all and its URLs return 404.
+      - key: ADMIN_PASSWORD
+        sync: false
+      # The URL the manager lives at. Defaults to /manage.
+      - key: ADMIN_PATH
+        sync: false
+      # Signs the login cookie. Generated once, then held steady so that
+      # restarts don't sign everyone out.
+      - key: SESSION_SECRET
+        generateValue: true
+
+      # --- Email delivery ---------------------------------------------------
       # Until these are set, form submissions are logged and written to disk
       # instead of emailed. Set them in the Render dashboard, not in this file.
       - key: SMTP_HOST

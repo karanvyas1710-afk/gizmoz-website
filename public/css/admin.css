@@ -1,0 +1,179 @@
+/* Gizmoz admin — deliberately plain. Black on white, one link colour,
+   system fonts. It is a tool, not a shopfront. */
+
+:root {
+  --ink: #111;
+  --sub: #666;
+  --line: #ddd;
+  --bg-soft: #f6f6f6;
+  --link: #1363df;
+  --danger: #a4291a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+a { color: var(--link); }
+
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 28px 20px 80px;
+}
+
+h1 { font-size: 1.45rem; margin: 0 0 4px; }
+h2 { font-size: 1.1rem; margin: 36px 0 8px; padding-top: 22px; border-top: 1px solid var(--line); }
+
+.sub-line { color: var(--sub); margin: 0 0 20px; font-size: 0.9rem; }
+.hint { color: var(--sub); font-weight: 400; font-size: 0.85em; }
+code { background: var(--bg-soft); padding: 1px 4px; border-radius: 3px; font-size: 0.9em; }
+
+/* Top bar ---------------------------------------------------------- */
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+.bar nav { display: flex; align-items: center; gap: 16px; }
+.bar nav form { margin: 0; }
+.bar a, .bar .link { font-size: 0.9rem; }
+
+/* Messages --------------------------------------------------------- */
+
+.warn, .notice, .error {
+  padding: 11px 14px;
+  margin: 0 0 20px;
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  font-size: 0.9rem;
+}
+.warn { background: #fdf6e3; border-left-color: #c89a00; }
+.notice { background: #f0f7f0; border-left-color: #2e7d32; }
+.error { background: #fdf0ee; border-left-color: var(--danger); color: var(--danger); }
+
+/* Table ------------------------------------------------------------ */
+
+/* Narrow screens scroll the table itself rather than the whole page. */
+.table-wrap { overflow-x: auto; margin-bottom: 24px; -webkit-overflow-scrolling: touch; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--sub); }
+td.num, th.num { text-align: right; white-space: nowrap; }
+td.zero { color: var(--danger); font-weight: 600; }
+.thumb { width: 60px; }
+.thumb img { width: 52px; height: 40px; object-fit: contain; display: block; }
+.no-img { color: var(--sub); font-size: 0.8rem; }
+.sub { display: block; color: var(--sub); font-size: 0.82rem; font-weight: 400; }
+.was { text-decoration: line-through; }
+
+/* Forms ------------------------------------------------------------ */
+
+fieldset { border: 1px solid var(--line); padding: 18px 18px 6px; margin: 0 0 20px; }
+legend { padding: 0 6px; font-weight: 600; font-size: 0.9rem; }
+
+label { display: block; margin: 0 0 4px; font-weight: 600; font-size: 0.88rem; }
+input, select, textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-bottom: 16px;
+  border: 1px solid #bbb;
+  border-radius: 3px;
+  font: inherit;
+  background: #fff;
+  color: var(--ink);
+}
+textarea { resize: vertical; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.88rem; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--link); outline-offset: 1px; border-color: var(--link); }
+
+.row { display: flex; gap: 14px; flex-wrap: wrap; }
+.row > div { flex: 1 1 150px; }
+
+.narrow { max-width: 320px; }
+
+button {
+  padding: 9px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:hover { background: #333; }
+
+.button {
+  display: inline-block;
+  padding: 9px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  background: var(--ink);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.button:hover { background: #333; color: #fff; }
+
+button.link, .link {
+  background: none;
+  border: 0;
+  padding: 0;
+  color: var(--link);
+  font-weight: 400;
+  text-decoration: underline;
+  cursor: pointer;
+}
+button.link:hover, .link:hover { background: none; color: #0f4fae; }
+button.link.danger, .danger { color: var(--danger); }
+
+.danger-btn { background: #fff; color: var(--danger); border-color: var(--danger); }
+.danger-btn:hover { background: var(--danger); color: #fff; }
+
+.actions { display: flex; align-items: center; gap: 18px; margin-bottom: 10px; }
+
+/* Photos ----------------------------------------------------------- */
+
+.images { list-style: none; margin: 0 0 20px; padding: 0; }
+.images li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  margin-bottom: -1px;
+}
+.images img { width: 80px; height: 60px; object-fit: contain; flex: none; background: var(--bg-soft); }
+.img-actions { display: flex; gap: 14px; margin-top: 2px; }
+.hidden-form { display: none; }
+
+.upload { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.upload label { flex-basis: 100%; }
+.upload input { margin-bottom: 0; flex: 1 1 240px; }
+.upload button { flex: none; }
+
+@media (max-width: 620px) {
+  body { font-size: 16px; }             /* stop iOS zooming on focused inputs */
+  main { padding: 20px 14px 60px; }
+  .bar { flex-direction: column; align-items: flex-start; }
+  .bar nav { flex-wrap: wrap; gap: 14px; }
+  .images li { flex-wrap: wrap; }
+  .row { gap: 0; }
+  .row > div { flex-basis: 100%; }
+  th, td { padding: 9px 6px; }
+  /* Drop the columns a phone doesn't need, header and body together so the
+     rows stay aligned. What's left is name, price and stock. */
+  .thumb, .cat, .view { display: none; }
+  td:first-of-type { width: auto; }
+}

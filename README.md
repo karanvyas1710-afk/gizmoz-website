@@ -53,10 +53,89 @@ email on:
 | `MAIL_TO`   | `gizmozau@yahoo.com`       | Where enquiries land (defaults to the address in `lib/site.js`) |
 | `MAIL_FROM` | `Gizmoz <gizmozau@yahoo.com>` | Optional `From:` override              |
 
+And for the stock manager:
+
+| Variable         | Example     | Notes                                              |
+| ---------------- | ----------- | -------------------------------------------------- |
+| `ADMIN_PASSWORD` | *long random string* | Without it the manager does not exist     |
+| `ADMIN_PATH`     | `/manage`   | The URL it lives at; defaults to `/manage`          |
+| `DATA_DIR`       | `/var/data` | The persistent disk. Without it, edits are lost     |
+| `SESSION_SECRET` | *random*    | Optional; keeps logins valid across a password change |
+
 Set these in the Render dashboard. Never commit them.
 
 Each form also carries a hidden honeypot field and a per-IP rate limit (8
 submissions per 10 minutes) to keep the mailbox clean.
+
+## Managing stock (for the shop owner)
+
+Everything to do with products — prices, stock numbers, model numbers and
+photos — is edited from a page on the site itself. No code, no deploys.
+
+**The address** is your site plus `/manage`, e.g.
+`https://gizmoz.onrender.com/manage`. Sign in with the password set as
+`ADMIN_PASSWORD`. You stay signed in for a week.
+
+From there you can:
+
+- **Change a price or stock number** — click the product name, edit the boxes,
+  press *Save changes*. The shop updates immediately.
+- **Put something on sale** — set *Was price* higher than the price. The shop
+  shows the old price struck through with a "Save $X" badge. Leave it blank to
+  end the sale.
+- **Mark something sold out** — set stock to `0`. The Buy now button is replaced
+  with "Out of stock" and an *Ask when it's back* link.
+- **Record model numbers** — the *Model number* box, e.g. `20VH0016AU`.
+- **Add or remove photos** — at the bottom of each product. The first photo is
+  the one used on the shop grid; *Make main* promotes another one. JPEG, PNG or
+  WebP, up to 5 MB each.
+- **Add a new product** — *Add product* in the top bar. Create it first, then
+  add its photos. Until it has a photo the shop shows a neutral
+  "photo coming soon" placeholder.
+- **Show something on the home page** — set *Show on home page* to Yes. The
+  home page shows the first three.
+- **Delete a product** — at the bottom of its page. Its uploaded photos are
+  deleted with it.
+
+Specifications are one per line, written as `Label: value`:
+
+```
+Colour: Black
+Screen: 13.3″ HD (1366 x 768) IPS Anti-Glare
+RAM: 8GB DDR4 3200MHz
+```
+
+The page works on a phone as well as a computer.
+
+### The manager needs a disk to be reliable
+
+Render wipes a service's filesystem on every restart and every deploy. Without
+a persistent disk, everything saved in the manager is lost — silently. The
+manager shows a yellow warning at the top when it detects this.
+
+`render.yaml` in this repository asks for a 1 GB disk mounted at `/var/data`,
+with `DATA_DIR` pointing at it. **Disks require a paid instance type**; they
+are not available on the free plan. If you are setting the service up by hand:
+
+1. Service → **Disks** → *Add disk*, mount path `/var/data`, 1 GB.
+2. Service → **Environment** → add `DATA_DIR` = `/var/data`.
+3. Save. The service restarts and the warning disappears.
+
+The first time it starts with an empty disk, the catalogue in
+`data/products.json` is copied across as a starting point. After that the disk
+is the source of truth and deploys never overwrite it.
+
+### Security
+
+- `ADMIN_PASSWORD` is the only thing protecting the manager. Use something long
+  and random, and set it in Render's dashboard, never in this repository.
+- Without `ADMIN_PASSWORD` set, the manager is **not registered at all** — its
+  URLs return the normal 404. A deploy that forgets the variable is closed, not
+  open.
+- Changing the password signs everyone out immediately, unless you have set
+  `SESSION_SECRET` explicitly.
+- The manager is marked `noindex` so search engines won't list it, but the
+  password is what actually protects it — a private URL is not a secret.
 
 ## Editing the site
 
@@ -91,8 +170,10 @@ Product images go in `public/images/products/`. The server reads each image's
 real dimensions at startup and writes them onto the `<img>` tag, so pages don't
 jump around while images load — you don't need to record sizes anywhere.
 
-Changes to `products.json` are read at startup, so restart (or redeploy) to
-pick them up.
+Editing this file by hand only affects deployments that have never used the
+stock manager. Once `DATA_DIR` is set, the copy on the disk is the live one and
+this file is just the seed used to populate an empty disk. To change stock on a
+running site, use the manager.
 
 ## Pages
 
@@ -111,6 +192,7 @@ pick them up.
 | `/find-your-ideal-device`          | Book an appointment, or take the questionnaire        |
 | `/questionnaire`                   | The questionnaire itself                              |
 | `/contact`                         | Contact form, details, map and returns policy         |
+| `/manage`                          | Stock manager (password protected)                    |
 | `/healthz`                         | Health check                                          |
 
 ## How the basket works
@@ -140,9 +222,13 @@ server.js            routes, form handling, validation, rate limiting
     brand.js           logo and icons, as inline SVG
     imagesize.js       reads intrinsic image dimensions
     mailer.js          SMTP delivery, with the save-to-disk fallback
-  pages/               one module per page
+    store.js           the catalogue: loading, saving, image paths
+    auth.js            password gate for the stock manager
+    admin-routes.js    stock manager routes, validation, uploads
+  pages/               one module per page (admin.js is the stock manager)
   public/
     css/site.css       all styles; design tokens at the top
+    css/admin.css      the stock manager, deliberately plain
     js/site.js         mobile nav, gallery, basket, form submission
     images/            site imagery and product photography
 ```
