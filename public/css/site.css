@@ -372,15 +372,10 @@ a:hover { color: var(--blue-dark); }
   gap: clamp(28px, 4vw, 70px);
   padding-block: clamp(40px, 5vw, 76px);
 }
-.hero-title { margin: 0; }
-.hero-text .wordmark { height: auto; max-width: min(430px, 100%); }
-.hero-tagline {
-  margin: -6px 0 26px;
-  padding-left: clamp(60px, 22%, 110px);
-  color: var(--muted);
-  font-size: clamp(0.85rem, 1vw, 1rem);
-  letter-spacing: 0.01em;
-}
+/* The tagline is part of the logo artwork now, so the hero has no separate
+   tagline line to align. */
+.hero-title { margin: 0 0 26px; }
+.hero-text .wordmark { height: auto; width: min(470px, 100%); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
 
 .promo {
@@ -1127,7 +1122,6 @@ a:hover { color: var(--blue-dark); }
   .split-reverse .split-media { order: 0; }
   .hero-media { order: -1; max-width: 640px; margin-inline: auto; }
   .hero-text { text-align: center; }
-  .hero-tagline { padding-left: 0; }
   .hero-text .wordmark { margin-inline: auto; }
   .hero-actions, .promo { justify-content: center; margin-inline: auto; }
   .split-media { max-width: 560px; margin-inline: auto; }

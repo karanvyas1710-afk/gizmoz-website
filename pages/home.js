@@ -22,9 +22,8 @@ module.exports = function home(products) {
     <div class="hero-text">
       <h1 class="hero-title">
         <span class="sr-only">Gizmoz — ${esc(site.tagline)}</span>
-        <span aria-hidden="true">${wordmark({ height: 104 })}</span>
+        <span aria-hidden="true">${wordmark({ height: 132, tagline: site.tagline })}</span>
       </h1>
-      <p class="hero-tagline" aria-hidden="true">${esc(site.tagline)}</p>
       <div class="hero-actions">
         <a class="btn" href="/shop">Shop now</a>
         <a class="btn btn-ebay" href="${site.social.ebay}" target="_blank" rel="noopener">
