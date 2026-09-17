@@ -195,7 +195,7 @@ ${banner({
       <li><span class="step-n">1</span><h3>Send us the list</h3><p>Email or message the school's BYOD specification — or just tell us the year group.</p></li>
       <li><span class="step-n">2</span><h3>We match it</h3><p>We check the spec against what our distributors hold and shortlist two or three devices.</p></li>
       <li><span class="step-n">3</span><h3>You get prices</h3><p>We email the options with real prices, including any Back to School voucher discount.</p></li>
-      <li><span class="step-n">4</span><h3>Pick up or delivered</h3><p>Collect from Homebush West or we ship it anywhere in Australia and New Zealand.</p></li>
+      <li><span class="step-n">4</span><h3>Pick up or delivered</h3><p>Collect from ${esc(site.addressShort)} or we ship it anywhere in Australia and New Zealand.</p></li>
     </ol>
   </div>
 </section>

@@ -935,7 +935,18 @@ a:hover { color: var(--blue-dark); }
 .contact-facts dt svg { width: 18px; height: 18px; }
 .contact-facts dd { margin: 0; }
 .contact-facts .muted { font-size: 0.87rem; }
-.contact-map { margin-top: 30px; border-radius: var(--radius); border: 1px solid var(--line); }
+/* The map is an embed rather than a screenshot, so it can never go stale
+   when the address changes. The link below it works even if the embed is
+   blocked. */
+.contact-map {
+  margin-top: 30px;
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: var(--bg-tint);
+}
+.contact-map iframe { display: block; width: 100%; height: clamp(260px, 34vw, 380px); }
+.map-link { margin-top: 10px; font-size: 0.9rem; }
 
 .returns-band { background: var(--bg-tint); }
 .returns-band p { max-width: 92ch; }

@@ -37,7 +37,16 @@ ${banner({
         <div><dt>${icons.check} Pickup address</dt><dd>${esc(site.address)}<br><span class="muted">Customers can collect purchases directly from our premises.</span></dd></div>
       </dl>
 
-      <img class="contact-map" src="/images/site/map-sydney.jpg" alt="Map showing Gizmoz in Homebush West, Sydney"${sizeAttrs('site/map-sydney.jpg')} loading="lazy">
+      <div class="contact-map">
+        <iframe
+          src="https://www.google.com/maps?q=${encodeURIComponent(site.address)}&amp;output=embed"
+          title="Map showing Gizmoz at ${esc(site.address)}"
+          width="600" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          style="border:0"></iframe>
+      </div>
+      <p class="map-link"><a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(
+        site.address
+      )}" target="_blank" rel="noopener">Open in Google Maps</a></p>
     </div>
 
     <div class="contact-form-wrap">
@@ -100,7 +109,7 @@ ${banner({
       need, what you already have, and what's worth spending money on.</p>
       <ul class="ticks">
         <li>${icons.check} Free, no obligation</li>
-        <li>${icons.check} Virtual or in person at Homebush West</li>
+        <li>${icons.check} Virtual or in person at ${esc(site.addressShort)}</li>
         <li>${icons.check} Bring your school spec list or work requirements</li>
       </ul>
       <a class="btn" href="/contact?subject=${encodeURIComponent('General query')}&amp;about=${encodeURIComponent('Booking an appointment')}">Book an appointment</a>
@@ -271,7 +280,7 @@ ${banner({
         ${field({ name: 'name', label: 'Your name', required: true, autocomplete: 'name' })}
         ${field({ name: 'email', label: 'Email address', type: 'email', required: true, autocomplete: 'email' })}
         ${field({ name: 'phone', label: 'Phone number', type: 'tel', autocomplete: 'tel' })}
-        ${field({ name: 'fulfilment', label: 'Pickup or delivery?', type: 'select', required: true, options: ['Pickup from Homebush West', 'Deliver to me'] })}
+        ${field({ name: 'fulfilment', label: 'Pickup or delivery?', type: 'select', required: true, options: [`Pickup from ${site.addressShort}`, 'Deliver to me'] })}
         ${field({ name: 'notes', label: 'Anything else?', type: 'textarea', rows: 3 })}
         <input type="hidden" name="items" data-cart-payload>
         ${formFurniture()}
