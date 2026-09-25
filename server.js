@@ -47,7 +47,7 @@ app.use(
 );
 
 // The admin area mounts itself, and is absent entirely when no password is set.
-adminRoutes(app);
+const adminPath = adminRoutes(app);
 
 const html = (res, markup) => res.type('html').send(markup);
 
@@ -55,7 +55,19 @@ const html = (res, markup) => res.type('html').send(markup);
 /* Pages                                                               */
 /* ------------------------------------------------------------------ */
 
-app.get('/healthz', (_req, res) => res.json({ ok: true, mail: mailer.isMailConfigured() }));
+/**
+ * Health check, and the quickest way to see how a deploy is configured.
+ * Reports whether the stock manager is switched on and whether saved changes
+ * will survive a restart, but never the admin path or any secret.
+ */
+app.get('/healthz', (_req, res) =>
+  res.json({
+    ok: true,
+    mail: mailer.isMailConfigured(),
+    admin: Boolean(adminPath),
+    storage: store.isDurable() ? 'persistent' : 'ephemeral',
+  })
+);
 
 app.get('/', (_req, res) => html(res, home(products())));
 app.get('/our-story', (_req, res) => html(res, ourStory()));
