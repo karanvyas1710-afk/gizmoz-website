@@ -2,7 +2,9 @@
 
 const site = require('../lib/site');
 const { page, banner, esc, icons } = require('../lib/layout');
-const { splitBlock, contactPills } = require('../lib/components');
+const { splitBlock, contactPills, faqSection } = require('../lib/components');
+const seo = require('../lib/seo');
+const faqs = require('../lib/faqs');
 
 /* ------------------------------------------------------------------ */
 /* Our Story                                                           */
@@ -73,12 +75,20 @@ ${splitBlock({
 </section>
 `;
   return page({
-    title: 'Our Story',
+    title: 'Our Story — Family-Run IT in Sydney',
     description:
-      'Gizmoz is a family-run IT service provider in Sydney with a combined 30 years of experience, founded in ' +
+      'Gizmoz is a family-run IT provider in Sydney with a combined 30 years of experience, founded in ' +
       '2019 and established as Gizmoz in 2022.',
     body,
     current: '/our-story',
+    jsonld: [
+      seo.breadcrumbs([['Home', '/'], ['Our Story', '/our-story']]),
+      {
+        '@type': 'AboutPage',
+        name: 'Our Story',
+        mainEntity: { '@id': seo.ORG_ID },
+      },
+    ],
   });
 }
 
@@ -158,6 +168,9 @@ ${splitBlock({
       'setups and Wi-Fi solutions across Sydney.',
     body,
     current: '/personal-solutions',
+    jsonld: [
+      seo.breadcrumbs([['Home', '/'], ['Personal Solutions', '/personal-solutions']]),
+    ],
   });
 }
 
@@ -220,14 +233,28 @@ ${banner({
     <a class="btn btn-light" href="/questionnaire">Start the questionnaire</a>
   </div>
 </section>
+
+${faqSection({ title: 'School devices — common questions', items: faqs.byod })}
 `;
   return page({
     title: 'Devices for School (BYOD)',
     description:
-      'BYOD devices for school from Gizmoz in Sydney. Send us your school’s tech specification list and we ' +
-      'will find the right laptop at the right price. Certified NSW Back to School provider.',
+      'BYOD school laptops from Gizmoz in Sydney. Send your school’s device specification and we will ' +
+      'match it. Certified NSW Back to School voucher provider.',
     body,
     current: '/byod',
+    jsonld: [
+      seo.breadcrumbs([['Home', '/'], ['Personal Solutions', '/personal-solutions'], ['Devices for School (BYOD)', '/byod']]),
+      seo.service({
+        name: 'BYOD school device supply',
+        serviceType: 'School laptop supply and advice',
+        pathname: '/byod',
+        description:
+          'Gizmoz matches a school’s published BYOD device specification against available Lenovo ' +
+          'stock and quotes two or three laptops that meet it. Certified NSW Back to School voucher provider.',
+      }),
+      seo.faq(faqs.byod),
+    ],
   });
 }
 
@@ -290,6 +317,8 @@ ${splitBlock({
     ${contactPills()}
   </div>
 </section>
+
+${faqSection({ title: 'Wi-Fi and networking — common questions', items: faqs.wifi })}
 `;
   return page({
     title: 'Wi-Fi and Networking Solutions',
@@ -298,6 +327,18 @@ ${splitBlock({
       'cabling and router setup for homes and businesses across Sydney.',
     body,
     current: '/wifi-solutions',
+    jsonld: [
+      seo.breadcrumbs([['Home', '/'], ['Personal Solutions', '/personal-solutions'], ['Wi-Fi and Networking', '/wifi-solutions']]),
+      seo.service({
+        name: 'Wi-Fi and networking installation',
+        serviceType: 'Computer network installation',
+        pathname: '/wifi-solutions',
+        description:
+          'Wi-Fi access point installation, mesh coverage, data cabling and router setup for homes ' +
+          'and small businesses across Sydney’s Hills District. Site visit first, then a fixed quote.',
+      }),
+      seo.faq(faqs.wifi),
+    ],
   });
 }
 

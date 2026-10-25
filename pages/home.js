@@ -4,7 +4,9 @@ const { sizeAttrs } = require('../lib/imagesize');
 
 const site = require('../lib/site');
 const { page, esc, icons, wordmark } = require('../lib/layout');
-const { productGrid, splitBlock, contactPills } = require('../lib/components');
+const { productGrid, splitBlock, contactPills, faqSection } = require('../lib/components');
+const seo = require('../lib/seo');
+const faqs = require('../lib/faqs');
 
 module.exports = function home(products) {
   const topPicks = products.filter((p) => p.featured).slice(0, 3);
@@ -134,14 +136,22 @@ ${splitBlock({
   alt: 'Lenovo ThinkPad X1 Fold',
   cta: { href: '/contact', label: 'More info' },
 })}
+
+${faqSection({ title: 'Frequently asked questions', items: faqs.home })}
 `;
 
   return page({
     title: null,
     description:
-      'Gizmoz is a family-run technology solutions provider in Sydney. Authorised Lenovo reseller selling ' +
-      'laptops and accessories, BYOD school devices, work-from-home setups and Wi-Fi solutions.',
+      'Authorised Lenovo reseller in Sydney. New ThinkPad laptops, BYOD school devices and Wi-Fi ' +
+      'installation. Family-run, shipped Australia-wide.',
     body,
     current: '/',
+    jsonld: [
+      seo.faq(faqs.home),
+      topPicks.length
+        ? seo.itemList(topPicks, { name: 'Featured products', pathname: '/' })
+        : null,
+    ].filter(Boolean),
   });
 };

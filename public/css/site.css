@@ -1177,3 +1177,79 @@ a:hover { color: var(--blue-dark); }
   .spec-table tr { display: block; padding: 12px 0; border-bottom: 1px solid var(--line); }
   .btn-social { min-width: 0; flex: 1 1 auto; }
 }
+
+/* FAQ ---------------------------------------------------------------
+   Question-and-answer blocks. The answers are always in the DOM, so a
+   crawler reads them whether or not a visitor opens the row. */
+
+.faq-band {
+  padding: 72px 0;
+  background: var(--bg-tint);
+}
+.faq-band > .wrap { max-width: 980px; }
+.faq-band h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: var(--navy);
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.faq-item {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.faq-item > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  transition: background 0.15s ease;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary:hover { background: var(--bg-tint); }
+.faq-item > summary:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+
+.faq-item > summary h3 {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: var(--navy);
+  line-height: 1.45;
+}
+
+/* The chevron is drawn here so the markup stays a plain summary. */
+.faq-item > summary::after {
+  content: '';
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-right: 2.2px solid var(--blue);
+  border-bottom: 2.2px solid var(--blue);
+  transform: rotate(45deg) translate(-3px, -3px);
+  transition: transform 0.2s ease;
+}
+.faq-item[open] > summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
+
+.faq-answer {
+  padding: 0 22px 20px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.faq-answer p { margin: 0 0 12px; }
+.faq-answer p:last-child { margin-bottom: 0; }
+.faq-answer a { color: var(--blue); }
+.faq-answer ul { margin: 0 0 12px; padding-left: 20px; }
+.faq-answer li { margin-bottom: 6px; }
+
+@media (max-width: 700px) {
+  .faq-band { padding: 48px 0; }
+  .faq-item > summary { padding: 15px 17px; }
+  .faq-answer { padding: 0 17px 17px; }
+}

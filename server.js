@@ -8,6 +8,7 @@ const site = require('./lib/site');
 const mailer = require('./lib/mailer');
 const store = require('./lib/store');
 const adminRoutes = require('./lib/admin-routes');
+const discovery = require('./lib/discovery');
 const { money } = require('./lib/layout');
 
 const home = require('./pages/home');
@@ -67,6 +68,29 @@ app.get('/healthz', (_req, res) =>
     admin: Boolean(adminPath),
     storage: store.isDurable() ? 'persistent' : 'ephemeral',
   })
+);
+
+/* ------------------------------------------------------------------ */
+/* Crawler discovery files                                             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Generated rather than static, so a product added in the stock manager
+ * turns up in the sitemap and the assistant brief straight away.
+ */
+const CRAWLER_CACHE = process.env.NODE_ENV === 'production' ? 'public, max-age=3600' : 'no-store';
+
+app.get('/robots.txt', (_req, res) =>
+  res.type('text/plain; charset=utf-8').set('Cache-Control', CRAWLER_CACHE).send(discovery.robots())
+);
+
+app.get('/sitemap.xml', (_req, res) =>
+  res.type('application/xml; charset=utf-8').set('Cache-Control', CRAWLER_CACHE).send(discovery.sitemap())
+);
+
+/** A plain-language brief for assistants — see llmstxt.org. */
+app.get('/llms.txt', (_req, res) =>
+  res.type('text/plain; charset=utf-8').set('Cache-Control', CRAWLER_CACHE).send(discovery.llmsTxt())
 );
 
 app.get('/', (_req, res) => html(res, home(products())));

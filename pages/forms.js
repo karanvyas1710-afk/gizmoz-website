@@ -4,7 +4,9 @@ const { sizeAttrs } = require('../lib/imagesize');
 
 const site = require('../lib/site');
 const { page, banner, esc, icons } = require('../lib/layout');
-const { field, choiceGroup, formFurniture, contactPills } = require('../lib/components');
+const { field, choiceGroup, formFurniture, contactPills, faqSection } = require('../lib/components');
+const seo = require('../lib/seo');
+const faqs = require('../lib/faqs');
 
 /* ------------------------------------------------------------------ */
 /* Contact                                                             */
@@ -34,19 +36,9 @@ ${banner({
       <dl class="contact-facts">
         <div><dt>${icons.phone} Phone</dt><dd><a href="tel:${site.phoneIntl}">${esc(site.phone)}</a><br><span class="muted">Our primary number — we answer fast.</span></dd></div>
         <div><dt>${icons.mail} Email</dt><dd><a href="mailto:${site.email}">${esc(site.email)}</a><br><span class="muted">If the phone is unavailable, email or DM us through our socials.</span></dd></div>
-        <div><dt>${icons.check} Pickup address</dt><dd>${esc(site.address)}<br><span class="muted">Customers can collect purchases directly from our premises.</span></dd></div>
+        <div><dt>${icons.check} Pickup</dt><dd>${esc(site.publicLocation)}<br><span class="muted">Free local pickup by arrangement — we confirm the address once your order is placed.</span></dd></div>
+        <div><dt>${icons.check} Delivery</dt><dd>Australia-wide and New Zealand<br><span class="muted">We ship anywhere in Australia and New Zealand.</span></dd></div>
       </dl>
-
-      <div class="contact-map">
-        <iframe
-          src="https://www.google.com/maps?q=${encodeURIComponent(site.address)}&amp;output=embed"
-          title="Map showing Gizmoz at ${esc(site.address)}"
-          width="600" height="360" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-          style="border:0"></iframe>
-      </div>
-      <p class="map-link"><a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(
-        site.address
-      )}" target="_blank" rel="noopener">Open in Google Maps</a></p>
     </div>
 
     <div class="contact-form-wrap">
@@ -65,7 +57,7 @@ ${banner({
   </div>
 </section>
 
-<section class="returns-band">
+<section class="returns-band" id="returns">
   <div class="wrap">
     <h2>Returns</h2>
     <p>Returns are only accepted if the product is faulty and has a valid DOA number obtained from Lenovo by calling
@@ -77,12 +69,21 @@ ${banner({
     you have any questions.</p>
   </div>
 </section>
+
+${faqSection({ title: 'Common questions', items: faqs.general })}
 `;
   return page({
     title: 'Contact and Returns',
-    description: `Contact Gizmoz on ${site.phone} or ${site.email}. Pickup available from ${site.address}.`,
+    description:
+      `Contact Gizmoz on ${site.phone} or ${site.email}. Authorised Lenovo reseller in ` +
+      `${site.locality}, ${site.region}. Free local pickup, shipped Australia-wide.`,
     body,
     current: '/contact',
+    jsonld: [
+      seo.breadcrumbs([['Home', '/'], ['Contact', '/contact']]),
+      { '@type': 'ContactPage', name: 'Contact Gizmoz', mainEntity: { '@id': seo.ORG_ID } },
+      seo.faq(faqs.general),
+    ],
   });
 }
 
@@ -146,6 +147,9 @@ ${banner({
       'with prices for work, school, university or home.',
     body,
     current: '/find-your-ideal-device',
+    jsonld: [
+      seo.breadcrumbs([['Home', '/'], ['Personal Solutions', '/personal-solutions'], ['Find Your Ideal Device', '/find-your-ideal-device']]),
+    ],
   });
 }
 
@@ -244,6 +248,15 @@ ${banner({
       'laptops with prices.',
     body,
     current: '/find-your-ideal-device',
+    path: '/questionnaire',
+    jsonld: [
+      seo.breadcrumbs([
+        ['Home', '/'],
+        ['Personal Solutions', '/personal-solutions'],
+        ['Find Your Ideal Device', '/find-your-ideal-device'],
+        ['Device Questionnaire', '/questionnaire'],
+      ]),
+    ],
   });
 }
 
@@ -297,6 +310,8 @@ ${banner({
     description: 'Request an order from Gizmoz. We confirm stock and reply with a total and payment options.',
     body,
     current: '/shop',
+    path: '/cart',
+    noindex: true,
   });
 }
 
@@ -324,7 +339,7 @@ function thanks(kind) {
     </div>
   </div>
 </section>`;
-  return page({ title: copy[0], description: copy[1], body, current: '/', strip: false });
+  return page({ title: copy[0], description: copy[1], body, current: '/', path: `/thanks/${kind}`, strip: false, noindex: true });
 }
 
 function notFound() {
@@ -339,7 +354,7 @@ function notFound() {
     </div>
   </div>
 </section>`;
-  return page({ title: 'Page not found', description: 'That page could not be found.', body, current: '/', strip: false });
+  return page({ title: 'Page not found', description: 'That page could not be found.', body, current: '/', strip: false, noindex: true });
 }
 
 module.exports = { contact, findYourIdealDevice, questionnaire, cart, thanks, notFound };

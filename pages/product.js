@@ -5,6 +5,7 @@ const { page, esc, paragraphs, money, icons } = require('../lib/layout');
 const { productGrid, stockLabel } = require('../lib/components');
 const { sizeAttrs } = require('../lib/imagesize');
 const { imageUrl } = require('../lib/store');
+const seo = require('../lib/seo');
 
 const SHIPPING = 'Shipping only to Australia and New Zealand.';
 
@@ -116,10 +117,34 @@ ${
 }
 `;
 
+  const pathname = `/product/${p.slug}`;
+  const inStock = Number(p.stock) > 0;
+
+  // Model number first in the description: people searching a ThinkPad by
+  // its part number are the highest-intent traffic this site can win.
+  // Kept under ~160 characters so Google shows it whole; model number and
+  // price lead, because those are what high-intent searches contain.
+  const description = [
+    `${p.name}${p.model ? ` (${p.model})` : ''} — ${money(p.price)} AUD,`,
+    `${inStock ? 'in stock' : 'available to order'}.`,
+    'New with genuine Lenovo warranty from Gizmoz, Sydney. Ships Australia-wide.',
+  ].join(' ');
+
   return page({
-    title: p.name,
-    description: `${p.name} — ${money(p.price)}. ${p.tagline} Available from Gizmoz, an authorised Lenovo reseller in Sydney.`,
+    title: p.model ? `${p.name} (${p.model})` : p.name,
+    description,
     body,
     current: '/shop',
+    path: pathname,
+    image: p.images && p.images[0] ? imageUrl(p.images[0]) : undefined,
+    jsonld: [
+      seo.breadcrumbs([
+        ['Home', '/'],
+        ['Shop', '/shop'],
+        [p.category === 'accessories' ? 'Accessories' : 'Laptops', `/shop/${p.category}`],
+        [p.name, pathname],
+      ]),
+      seo.product(p),
+    ],
   });
 };

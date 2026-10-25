@@ -4,22 +4,32 @@ const { sizeAttrs } = require('../lib/imagesize');
 
 const { page, banner, esc } = require('../lib/layout');
 const { productGrid } = require('../lib/components');
+const seo = require('../lib/seo');
 
 const BRAND_COPY = {
   lenovo: {
-    title: 'Lenovo',
+    title: 'Lenovo Laptops and Accessories',
+    seo:
+      'New Lenovo ThinkPad laptops and accessories from Gizmoz, a verified Lenovo PC Partner in Sydney. ' +
+      'Genuine warranty, shipped Australia-wide.',
     lead:
       'We are a verified Lenovo PC Partner, so every Lenovo machine we sell is new stock carrying genuine ' +
       'Lenovo warranty — sourced from distributors rather than the retail shelf.',
   },
   hp: {
-    title: 'HP',
+    title: 'HP Laptops and Desktops',
+    seo:
+      'HP laptops and desktops sourced to order by Gizmoz in Sydney. Tell us the specification you need ' +
+      'and we will quote it. Shipped Australia-wide.',
     lead:
       'We source HP laptops and desktops to order through our distributors. Tell us the specification you are ' +
       'after and we will quote it.',
   },
   dell: {
-    title: 'Dell',
+    title: 'Dell Laptops and Desktops',
+    seo:
+      'Dell laptops and desktops sourced to order by Gizmoz in Sydney. Tell us the specification you need ' +
+      'and we will quote it. Shipped Australia-wide.',
     lead:
       'We source Dell laptops and desktops to order through our distributors. Tell us the specification you are ' +
       'after and we will quote it.',
@@ -27,14 +37,31 @@ const BRAND_COPY = {
 };
 
 const CATEGORY_COPY = {
-  laptops: { title: 'Laptops and ThinkPads', lead: 'Every laptop currently on the shelf at Gizmoz.' },
-  accessories: { title: 'Accessories', lead: 'Docks, mice and the bits that make a desk work properly.' },
+  laptops: {
+    title: 'Laptops and ThinkPads',
+    seo:
+      'Buy new Lenovo ThinkPad laptops from Gizmoz, an authorised Lenovo reseller in Sydney. ' +
+      'Genuine manufacturer warranty, BYOD school devices, shipped Australia-wide.',
+    lead: 'Every laptop currently on the shelf at Gizmoz.',
+  },
+  accessories: {
+    title: 'Laptop Accessories',
+    seo:
+      'ThinkPad docks, wireless mice and desk accessories from Gizmoz, an authorised Lenovo reseller ' +
+      'in Sydney. Shipped Australia-wide.',
+    lead: 'Docks, mice and the bits that make a desk work properly.',
+  },
 };
 
 const SHOP_LEAD =
   'Support authentic Aussie small business and shop Gizmoz’s range of laptops and devices with ease. ' +
   'As a verified Lenovo PC Partner, we will always make sure that you get your money’s worth. ' +
   'Keep posted on our social media and website for more!';
+
+/** Shorter than SHOP_LEAD, because Google truncates a description past ~160 characters. */
+const SHOP_SEO =
+  'Shop new Lenovo ThinkPad laptops and accessories at Gizmoz, a verified Lenovo PC Partner in ' +
+  'Sydney. Genuine warranty, free local pickup, shipped Australia-wide.';
 
 /** Filter chips across the top of the grid. */
 function filterBar(current) {
@@ -83,7 +110,7 @@ function helpPanel(brandTitle) {
  */
 module.exports = function shop(products, { brand, category } = {}) {
   let list = products;
-  let copy = { title: 'Laptops and Accessories', lead: SHOP_LEAD };
+  let copy = { title: 'Laptops and Accessories', lead: SHOP_LEAD, seo: SHOP_SEO };
   let current = '/shop';
   let brandTitle = null;
 
@@ -118,10 +145,26 @@ ${banner({
 ${helpPanel(brandTitle)}
 `;
 
+  const trail = [['Home', '/'], ['Shop', '/shop']];
+  if (current !== '/shop') trail.push([copy.title, current]);
+
   return page({
     title: copy.title,
-    description: copy.lead,
+    description: copy.seo || copy.lead,
     body,
     current,
+    // A brand filter with nothing behind it is a thin page. Keep it usable
+    // for a visitor who clicks the chip, but out of the index until it has
+    // stock to show.
+    noindex: list.length === 0,
+    jsonld: [
+      seo.breadcrumbs(trail),
+      seo.itemList(list, { name: copy.title, pathname: current }),
+      {
+        '@type': 'CollectionPage',
+        name: copy.title,
+        description: copy.lead,
+      },
+    ],
   });
 };
