@@ -5,13 +5,14 @@
   "description": "Gizmoz — laptop and IT solutions storefront for Sydney",
   "main": "server.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.2",
     "express": "^4.21.2",
     "multer": "^2.4.0",
     "nodemailer": "^10.0.10"

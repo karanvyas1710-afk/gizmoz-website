@@ -43,8 +43,9 @@ function shell({ title, body, base, showNav = true, notice }) {
 </header>
 <main>
 ${!store.isDurable() && showNav ? `<p class="warn"><strong>Changes will not survive a restart.</strong>
-  This server has no persistent disk attached, so anything saved here is lost when the service
-  restarts or redeploys. Ask your developer to attach a Render disk and set <code>DATA_DIR</code>.</p>` : ''}
+  This server has nowhere durable to save, so anything changed here is lost when it
+  restarts or redeploys. On Vercel, connect a Blob store; on a normal server, set
+  <code>DATA_DIR</code> to a folder outside the website code.</p>` : ''}
 ${notice ? `<p class="notice">${esc(notice)}</p>` : ''}
 ${body}
 </main>

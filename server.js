@@ -19,7 +19,6 @@ const { contact, findYourIdealDevice, questionnaire, cart, thanks, notFound } = 
 
 // The catalogue is mutable at runtime — the admin area edits it — so every
 // route reads it through the store rather than closing over a snapshot.
-store.load();
 const products = () => store.all();
 const bySlug = (slug) => store.bySlug(slug);
 
@@ -47,6 +46,18 @@ app.use(
   })
 );
 
+/**
+ * Make sure the catalogue is loaded before anything renders it.
+ *
+ * On a long-running server this is a no-op after the first request. On a
+ * serverless host every cold start begins with an empty snapshot, so the
+ * read has to happen per request — the store caches it and collapses
+ * concurrent callers into one fetch.
+ */
+app.use((req, res, next) => {
+  store.ready().then(() => next(), next);
+});
+
 // The admin area mounts itself, and is absent entirely when no password is set.
 const adminPath = adminRoutes(app);
 
@@ -67,6 +78,7 @@ app.get('/healthz', (_req, res) =>
     mail: mailer.isMailConfigured(),
     admin: Boolean(adminPath),
     storage: store.isDurable() ? 'persistent' : 'ephemeral',
+    backend: store.backend,
   })
 );
 
@@ -304,10 +316,19 @@ app.use((err, _req, res, _next) => {
   res.status(500).type('html').send(notFound());
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log(`[gizmoz] listening on http://localhost:${port}`);
-  if (!mailer.isMailConfigured()) {
-    console.log('[gizmoz] SMTP not configured — form submissions will be saved to ./submissions and logged.');
-  }
-});
+/**
+ * Serverless hosts import this module and call the exported app themselves,
+ * so only bind a port when the file is run directly.
+ */
+if (require.main === module) {
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => {
+    console.log(`[gizmoz] listening on http://localhost:${port}`);
+    console.log(`[gizmoz] catalogue storage: ${store.backend}`);
+    if (!mailer.isMailConfigured()) {
+      console.log('[gizmoz] SMTP not configured — form submissions will be saved to disk and logged.');
+    }
+  });
+}
+
+module.exports = app;
